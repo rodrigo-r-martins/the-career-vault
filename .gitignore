@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.env
+vault/
+applications/
+PLAN.md
