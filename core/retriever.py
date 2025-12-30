@@ -2,12 +2,18 @@ from langchain_ollama import OllamaEmbeddings
 from langchain_chroma import Chroma
 import os
 from langchain_core.documents import Document
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 _DB_LOCATION = os.path.join(os.path.dirname(__file__), "..", "vector_store")
 _DB_EXISTS = os.path.exists(_DB_LOCATION)
 
 _MASTER_COLLECTION_NAME = "career_master"
 _SNIPPET_COLLECTION_NAME = "career_snippets"
+
+text_splitter = RecursiveCharacterTextSplitter(
+    chunk_size=1000, # Max characters per chunk
+    chunk_overlap=100 # Keep a little bit of the previous chunk for context
+)
 
 class BaseRetriever:
   def __init__(self, collection_name: str):
@@ -32,8 +38,18 @@ class MasterRetriever(BaseRetriever):
     super().__init__(collection_name=_MASTER_COLLECTION_NAME)
   
   def add_master(self, master: str):
-    document = Document(page_content=master, metadata={"filename": "master.md"})
-    self.add_documents(documents=[document])
+    """Splits the master resume into chunks and indexes them."""
+    # 1. Break the large text into smaller chunks
+    chunks = text_splitter.split_text(master)
+    
+    # 2. Turn those chunks into Documents
+    documents = []
+    ids = []
+    for i, chunk in enumerate(chunks):
+      doc = Document(page_content=chunk, metadata={"filename": "master.md", "chunk": i}, id=f"master_chunk_{i}")
+      documents.append(doc)
+      ids.append(f"master_chunk_{i}") # Unique ID for each chunk
+    self.add_documents(documents=documents, ids=ids)
 
   def get_relevant_master(self, query: str, k: int = 3):
     return self.get_relevant_documents(query=query, k=k)
@@ -46,9 +62,20 @@ class SnippetRetriever(BaseRetriever):
     super().__init__(collection_name=_SNIPPET_COLLECTION_NAME)
   
   def add_snippets(self, snippets: list[dict]):
-    documents = [Document(page_content=s['content'], metadata={"filename": s['filename']}, id=s['filename']) for s in snippets]
-    ids = [s['filename'] for s in snippets]
-    self.add_documents(documents=documents, ids=ids)
+    all_documents = []
+    all_ids = []
+    
+    for s in snippets:
+      chunks = text_splitter.split_text(s['content'])
+      for i, chunk in enumerate(chunks):
+        doc = Document(
+          page_content=chunk, 
+          metadata={"filename": s['filename'], "chunk": i},
+          id=f"{s['filename']}_chunk_{i}"
+        )
+        all_documents.append(doc)
+        all_ids.append(f"{s['filename']}_chunk_{i}")
+    self.add_documents(documents=all_documents, ids=all_ids)
 
   def get_relevant_snippets(self, query: str, k: int = 3):
     return self.get_relevant_documents(query=query, k=k)
