@@ -4,3 +4,4 @@ __pycache__/
 vault/
 applications/
 PLAN.md
+vector_store/
