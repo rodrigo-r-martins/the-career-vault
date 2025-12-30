@@ -5,3 +5,8 @@ vault/
 applications/
 PLAN.md
 vector_store/
+cli/__pycache__/
+core/__pycache__/
+tests/__pycache__/
+career_vault.egg-info/
+career_agent.egg-info/
