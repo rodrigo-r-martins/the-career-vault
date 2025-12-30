@@ -54,9 +54,6 @@ class MasterRetriever(BaseRetriever):
   def get_relevant_master(self, query: str, k: int = 3):
     return self.get_relevant_documents(query=query, k=k)
 
-  def get_langchain_retriever(self, k: int = 3):
-    return self.get_langchain_retriever(k=k)
-
 class SnippetRetriever(BaseRetriever):
   def __init__(self):
     super().__init__(collection_name=_SNIPPET_COLLECTION_NAME)
@@ -81,4 +78,4 @@ class SnippetRetriever(BaseRetriever):
     return self.get_relevant_documents(query=query, k=k)
 
   def get_langchain_retriever(self, k: int = 3):
-    return self.get_langchain_retriever(k=k)
+    return super().get_langchain_retriever(k=k)
