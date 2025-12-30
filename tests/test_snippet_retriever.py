@@ -19,7 +19,7 @@ def run_retriever_test():
   query = "Experience with Shopify and AI bots"
   print(f"Searching for: '{query}'")
   
-  results = retriever.get_relevant_snippets(query, k=2)
+  results = retriever.get_relevant_documents(query=query, k=2)
   
   if results:
     for i, doc in enumerate(results):
