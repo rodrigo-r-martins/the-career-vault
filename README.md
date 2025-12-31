@@ -25,34 +25,60 @@ The Career Vault stores your "Master Resume" and project-specific deep dives (sn
 ## ⚙️ Setup & Installation
 
 1. **Install Ollama:** Follow instructions at [ollama.com](https://ollama.com).
-2. **Pull the Model:**
+2. **Pull the Models:**
    ```bash
+   # For logic and writing
    ollama pull deepseek-r1:8b
+   # For vector indexing
+   ollama pull mxbai-embed-large:335m
    ```
 3. **Setup Environment:**
    ```bash
    python3 -m venv venv
    source venv/bin/activate
-   pip install -r requirements.txt
+   pip install -e .
    ```
 
-## 📂 Project Structure
+## 🛠️ Usage
 
-```text
-career_vault/
-├── main.py             # CLI entry point
-├── core/
-│   ├── identity.py     # Data loading & filtering
-│   ├── agent.py        # LLM Orchestration
-│   └── storage.py      # File system operations
-├── vault/              # YOUR DATA (Master resume & snippets)
-└── applications/       # Tailored outputs
-```
+After installation, use the `career-agent` command directly from your terminal:
 
-## 🛠️ Usage (Development)
+### 1. Initialize the Vault
 
-Currently in initial development. Run the test script:
+Index your master resume and snippets into the vector database.
 
 ```bash
-python main.py
+career-agent init
+```
+
+### 2. Start a New Application
+
+Analyze a Job Description and create a dedicated folder for the role.
+
+```bash
+career-agent apply
+```
+
+### 3. Tailor Your Resume
+
+Update your master resume based on the specific job description.
+
+```bash
+career-agent tailor_resume applications/Company_Role
+```
+
+### 4. Generate a Cover Letter
+
+Create a human-like cover letter using relevant context from your vault.
+
+```bash
+career-agent cover_letter applications/Company_Role
+```
+
+### 5. Answer Application Questions
+
+Get tailored answers for specific application questions.
+
+```bash
+career-agent answer_questions applications/Company_Role
 ```
