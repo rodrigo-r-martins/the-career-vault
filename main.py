@@ -1,4 +1,10 @@
 import click
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
 from cli import (
     init_vault,
     apply_to_job,

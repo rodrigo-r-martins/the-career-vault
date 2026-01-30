@@ -11,7 +11,7 @@ The Career Vault stores your "Master Resume" and project-specific deep dives (sn
 - **Identity Loader:** Smart context filtering of your professional history.
 - **Multi-Agent Workflow:** Orchestrated steps using a Reflective Loop (Analyst, Matcher, Writer, Reviewer).
 - **CLI-Driven:** A professional terminal experience for managing your career data.
-- **Local & Private:** Runs locally using **Ollama** (defaulting to `deepseek-r1:8b`) to keep your data private.
+- **Local & Private:** Runs locally using **Ollama** to keep your data private.
 - **Mock Interviews:** (Coming Soon) AI-driven mock interviews based on your tailored applications.
 
 ## 🛠️ Tech Stack

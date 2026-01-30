@@ -17,7 +17,7 @@ text_splitter = RecursiveCharacterTextSplitter(
 
 class BaseRetriever:
   def __init__(self, collection_name: str):
-    self.embeddings = OllamaEmbeddings(model="mxbai-embed-large:335m")
+    self.embeddings = OllamaEmbeddings(model=os.getenv("MODEL_EMBEDDING"))
     self.vector_store = Chroma(
       collection_name=collection_name,
       persist_directory=_DB_LOCATION,

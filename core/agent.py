@@ -1,9 +1,10 @@
 from langchain_ollama.llms import OllamaLLM
 from langchain_core.prompts import ChatPromptTemplate
+import os
 
 class CareerAgent:
   def __init__(self):
-    self.model = OllamaLLM(model="deepseek-r1:8b")
+    self.model = OllamaLLM(model=os.getenv("MODEL_TEXT"))
 
   def update_resume(self, resume: str, job_description: str) -> str:
     template = """
