@@ -64,7 +64,7 @@ career-agent apply
 Update your master resume based on the specific job description.
 
 ```bash
-career-agent tailor_resume applications/Company_Role
+career-agent tailor-resume applications/Company_Role
 ```
 
 ### 4. Generate a Cover Letter
@@ -72,7 +72,7 @@ career-agent tailor_resume applications/Company_Role
 Create a human-like cover letter using relevant context from your vault.
 
 ```bash
-career-agent cover_letter applications/Company_Role
+career-agent cover-letter applications/Company_Role
 ```
 
 ### 5. Answer Application Questions
@@ -80,5 +80,5 @@ career-agent cover_letter applications/Company_Role
 Get tailored answers for specific application questions.
 
 ```bash
-career-agent answer_questions applications/Company_Role
+career-agent answer-questions applications/Company_Role
 ```
